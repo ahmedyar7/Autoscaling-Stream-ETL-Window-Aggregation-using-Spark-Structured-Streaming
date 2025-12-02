@@ -1,126 +1,137 @@
-# Autoscaling Stream ETL & Window Aggregation using Spark Structured Streaming
+<h1 align="center">
+Autoscaling Stream ETL & Window Aggregation using Spark Structured Streaming
+</h1>
 
-## 💻 Project Title
+<div style="text-align:center">
+    <img src="https://img.shields.io/badge/Apache%20Spark-4.0.1-E25A1C?style=flat&logo=apachespark&logoColor=white" alt="Apache Spark" style="margin:0 6px;vertical-align:middle"/>
+    <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat&logo=python&logoColor=white" alt="Python" style="margin:0 6px;vertical-align:middle"/>
+    <img src="https://img.shields.io/badge/Apache%20Kafka-Latest-231F20?style=flat&logo=apachekafka&logoColor=white" alt="Kafka" style="margin:0 6px;vertical-align:middle"/>
+    <img src="https://img.shields.io/badge/Docker-Required-2496ED?style=flat&logo=docker&logoColor=white" alt="Docker" style="margin:0 6px;vertical-align:middle"/>
+    <img src="https://img.shields.io/badge/Java-11%20%7C%2017-007396?style=flat&logo=openjdk&logoColor=white" alt="Java" style="margin:0 6px;vertical-align:middle"/>
+    <img src="https://img.shields.io/badge/License-MIT-green?style=flat" alt="License" style="margin:0 6px;vertical-align:middle"/>
+    <img src="https://img.shields.io/badge/Status-Active-success?style=flat" alt="Status" style="margin:0 6px;vertical-align:middle"/>
+</div>
 
-**Autoscaling Stream ETL & Window Aggregation using Spark Structured Streaming**
+## Project Overview
 
-## 💡 Overview
+This project demonstrates a **Cloud-Native Autoscaling Data Pipeline**. It simulates a real-time stream of Computer Science student activity logs, processes them using **Apache Spark Structured Streaming**, and dynamically scales computing resources based on traffic load.
 
-This project implements a complete, real-time data pipeline designed to demonstrate the elasticity of **Apache Spark Structured Streaming** using **Dynamic Allocation**.
+### Key Features
 
-The pipeline simulates logging activity from Computer Science students, performs windowed aggregation (calculating total lines of code and average CPU usage), and automatically scales the number of Spark executors in response to varying data ingestion rates (simulated load spikes).
-
-## 🚀 Deliverables Implemented
-
-| Deliverable | Description | Status |
-| :--- | :--- | :--- |
-| **Spark Streaming Job** | PySpark script (`stream_job.py`) with Kafka source, ETL, Watermarking, and Window Aggregation. | ✅ Implemented |
-| **Dynamic Allocation** | Spark configuration for automatic scaling (min 0, max 4 executors). | ✅ Configured |
-| **Load Simulation** | Python script (`producer.py`) to simulate variable load spikes in Kafka. | ✅ Implemented |
-| **Sink** | Console sink for real-time visualization of results. | ✅ Implemented |
-
----
-
-## 🛠️ Phase 1: Environment Setup (Windows)
-
-This project requires **Docker** (for Kafka), a local **Apache Spark** installation (with Java), and **winutils.exe** properly configured.
-
-### A. Kafka Setup (via Docker)
-
-1.  **Prerequisites:** Ensure **Docker Desktop** is running and functional.
-2.  **Start Kafka:** Navigate to the folder containing your `docker-compose.yml` file and run:
-    ```bash
-    docker-compose up -d
-    ```
-    *This starts the Zookeeper and Kafka broker containers on `localhost:9092`.*
-
-### B. Spark Standalone Cluster Setup
-
-To demonstrate autoscaling, you must manually launch the Master and Worker nodes.
-
-1.  **Start Spark Master (CMD 1):**
-    Navigate to your Spark installation's `bin` folder (e.g., `C:\spark...\bin`).
-
-    ```bash
-    spark-class org.apache.spark.deploy.master.Master
-    ```
-
-    *Observation: Note the Master URL displayed (e.g., `spark://<YOUR-IP>:7077`).*
-
-2.  **Start Spark Worker (CMD 2):**
-    Open a **new** terminal, navigate to the Spark `bin` folder, and use the Master URL:
-
-    ```bash
-    spark-class org.apache.spark.deploy.worker.Worker spark://<YOUR-IP>:7077
-    ```
+1.  **Real-Time ETL:** Ingests raw logs from Kafka, parses JSON, and filters data.
+2.  **Window Aggregation:** Calculates "Total Lines of Code" and "Average CPU Usage" over sliding 10-second windows.
+3.  **Dynamic Autoscaling:** The cluster automatically scales from **0 to 4 Executors** based on incoming load (Backlog).
+4.  **Resource Optimization:** configured to prevent resource hoarding (limits executors to 2 cores each).
 
 ---
 
-## ⚙️ Phase 2: Execution and Demonstration
+## Architecture
 
-### A. Start the Kafka Producer (`producer.py`)
-
-The producer sends simulated student activity data to the `cs_student_logs` topic.
-
-1.  **Activate Virtual Environment** (Recommended Best Practice):
-    ```bash
-    .\.venv\Scripts\activate
-    ```
-2.  **Install Python Dependencies:**
-    ```bash
-    pip install kafka-python faker
-    ```
-3.  **Run the Producer (CMD 3):**
-    ```bash
-    python producer.py
-    ```
-    *Troubleshooting:* If you receive a `ModuleNotFoundError` after installation, use the full path to your global Python installation: `D:\Python 3.13\python.exe producer.py`.
-    *Observation: The terminal will show continuous log lines being sent.* **(Keep this running.)**
-
-### B. Submit the Streaming Job (`stream_job.py`)
-
-This command launches the ETL job on your local Spark cluster with dynamic allocation enabled.
-
-1.  **Open a NEW Terminal (CMD 4)** and navigate to the folder containing `stream_job.py`.
-2.  **Submit the Job:** Ensure you replace `<YOUR-IP>` with the actual Master IP.
-    ```bash
-    spark-submit ^
-    --master spark://<YOUR-IP>:7077 ^
-    --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 ^
-    --conf spark.dynamicAllocation.enabled=true ^
-    --conf spark.dynamicAllocation.minExecutors=0 ^
-    --conf spark.dynamicAllocation.maxExecutors=4 ^
-    --conf spark.dynamicAllocation.executorIdleTimeout=10s ^
-    --conf spark.dynamicAllocation.schedulerBacklogTimeout=1s ^
-    stream_job.py
-    ```
-    *Note: If running on Linux/macOS, replace the line continuation character `^` with `\`.
-    *Observation: This terminal will start printing the Window Aggregation results (Total LOC, Avg CPU) every 5 seconds.*
+<div>
+    <img src="./assets/system-design.png">
+</div>
 
 ---
 
-## 📈 Phase 3: Demonstration of Autoscaling
+## Prerequisites (Windows Environment)
 
-### A. Observe Scaling UP
+To run this project locally, ensure you have the following installed:
 
-1.  **Monitor the Spark UI:** Open the Application UI at **`http://localhost:4040`**. Navigate to the **Executors** tab.
-2.  **Initial State:** You should see 0 or 1 active executor.
-3.  **Simulate Load Spike:** Open **two (2) or three (3) additional** terminals and run the producer script in each one simultaneously.
-    ```bash
-    python producer.py
-    ```
-4.  **Verification:** Watch the **Executors** tab. The number should rapidly increase towards the `maxExecutors=4` limit as Spark requests resources to handle the increased load.
-
-### B. Observe Scaling DOWN
-
-1.  **Stop the Load:** Close the extra producer terminals (leaving only the initial one running).
-2.  **Verification:** After the backlog is cleared, the executors will become idle. Due to `executorIdleTimeout=10s`, Spark will automatically terminate them, scaling the cluster back down to the minimum size.
+1.  **Docker Desktop** (For running Apache Kafka).
+2.  **Apache Spark** (Version 4.0.1 or 3.5.x).
+3.  **Python 3.x** (with `pyspark`, `kafka-python`, `faker` installed).
+4.  **Java JDK** (Version 17 or 11).
+5.  **CRITICAL:** `hadoop.dll` must be present in your `C:\Windows\System32` folder or your Hadoop bin folder to fix Windows file permission errors.
 
 ---
 
-## 📊 Evaluation Metrics
+## Execution Guide (Step-by-Step)
 
-To satisfy the project requirements, gather the following metrics from the **Spark UI** during the scaling test:
+Follow these steps in **PowerShell** to replicate the autoscaling demo.
 
-1.  **Throughput/Latency:** In the **Structured Streaming** tab, record the "Input Rate" vs. "Process Rate" before, during, and after the spike.
-2.  **Resource Utilization:** Record the total number of Active Executors over time as the load changes.
+### 1\. Start the Messaging Queue (Kafka)
+
+Start the Docker container for Kafka.
+
+```powershell
+docker-compose up -d
+```
+
+### 2\. Start the Spark Master
+
+Open a **new terminal** and launch the Master node.
+
+```powershell
+spark-class org.apache.spark.deploy.master.Master
+```
+
+-   **Note:** Copy the Master URL from the logs (e.g., `spark://192.168.100.110:7077`).
+-   **UI:** Access the dashboard at `http://localhost:8081`.
+
+### 3\. Start the Spark Worker
+
+Open a **new terminal** and connect a worker to the Master.
+
+```powershell
+# Replace with YOUR Master IP found in Step 2
+spark-class org.apache.spark.deploy.worker.Worker spark://192.168.100.110:7077
+```
+
+### 4\. Start the Data Producer
+
+Open a **new terminal**. This script generates student log data.
+
+```powershell
+python producer.py
+```
+
+### 5\. Submit the Streaming Job (The Brain)
+
+Open a **new terminal**. Run this exact command.
+_Note: We use `--executor-cores 2` to ensure one executor doesn't hog all CPU cores, allowing room for autoscaling._
+
+```powershell
+spark-submit --master spark://192.168.100.110:7077 --executor-cores 2 --packages org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.1 --conf spark.dynamicAllocation.enabled=true --conf spark.dynamicAllocation.minExecutors=0 --conf spark.dynamicAllocation.maxExecutors=4 --conf spark.dynamicAllocation.executorIdleTimeout=10s --conf spark.dynamicAllocation.schedulerBacklogTimeout=1s stream_job.py
+```
+
+---
+
+## How to Demo Autoscaling
+
+Once the system is running, follow these steps to demonstrate elasticity:
+
+1.  **Verify Baseline:**
+
+    -   Go to `http://localhost:8081` (Master UI).
+    -   Look at **Running Applications** -\> Click your App ID -\> Click **Executors** tab.
+    -   You should see **1 Active Executor**.
+
+2.  **Create a Traffic Spike:**
+
+    -   Open **3 or 4 NEW PowerShell terminals**.
+    -   Run `python producer.py` in ALL of them simultaneously.
+
+3.  **Observe Scaling:**
+
+    -   Refresh the **Executors** tab in your browser.
+    -   Spark will detect the backlog and automatically launch **Executor 2, 3, and 4**.
+    -   _Why?_ The system realizes 1 worker is not enough to process the flood of data.
+
+4.  **Cooldown:**
+
+    -   Close the extra producer terminals.
+    -   Wait \~15 seconds.
+    -   Refresh the UI. The extra executors will be killed to save resources (Scaling In).
+
+---
+
+## Troubleshooting
+
+-   **Error:** `java.lang.UnsatisfiedLinkError ... NativeIO$Windows.access0`
+    -   **Fix:** You are missing `hadoop.dll`. Download a compatible version for Hadoop 3.3+ and place it in `C:\Windows\System32`. restart your terminals.
+-   **Error:** Autoscaling doesn't happen (stuck at 1 executor).
+    -   **Fix:** Check the Master UI. If "Cores" says `8 (8 Used)`, your first executor took all the space. Use `--executor-cores 2` in your submit command to force sharing.
+-   **Error:** `NoSuchMethodError ... scala.Predef`
+    -   **Fix:** You are using a Scala 2.12 package with Spark 4.0.1 (which uses Scala 2.13). Ensure your `--packages` flag uses `_2.13`.
+
+---
