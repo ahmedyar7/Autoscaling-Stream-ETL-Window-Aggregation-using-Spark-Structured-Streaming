@@ -12,6 +12,10 @@ Autoscaling Stream ETL & Window Aggregation using Spark Structured Streaming
     <img src="https://img.shields.io/badge/Status-Active-success?style=flat" alt="Status" style="margin:0 6px;vertical-align:middle"/>
 </div>
 
+<br/>
+
+
+
 ## Project Overview
 
 This project demonstrates a **Cloud-Native Autoscaling Data Pipeline**. It simulates a real-time stream of Computer Science student activity logs, processes them using **Apache Spark Structured Streaming**, and dynamically scales computing resources based on traffic load.
@@ -49,7 +53,7 @@ To run this project locally, ensure you have the following installed:
 
 Follow these steps in **PowerShell** to replicate the autoscaling demo.
 
-### 1\. Start the Messaging Queue (Kafka)
+### 1. Start the Messaging Queue (Kafka)
 
 Start the Docker container for Kafka.
 
@@ -125,13 +129,10 @@ Once the system is running, follow these steps to demonstrate elasticity:
 
 ---
 
-## Troubleshooting
-
--   **Error:** `java.lang.UnsatisfiedLinkError ... NativeIO$Windows.access0`
-    -   **Fix:** You are missing `hadoop.dll`. Download a compatible version for Hadoop 3.3+ and place it in `C:\Windows\System32`. restart your terminals.
--   **Error:** Autoscaling doesn't happen (stuck at 1 executor).
-    -   **Fix:** Check the Master UI. If "Cores" says `8 (8 Used)`, your first executor took all the space. Use `--executor-cores 2` in your submit command to force sharing.
--   **Error:** `NoSuchMethodError ... scala.Predef`
-    -   **Fix:** You are using a Scala 2.12 package with Spark 4.0.1 (which uses Scala 2.13). Ensure your `--packages` flag uses `_2.13`.
-
----
+<div align="">
+  <h3>📄 Full Project Report</h3>
+  <p>For a deep dive into the theoretical concepts, cost analysis, and implementation details, please view the academic report.</p>
+  <a href="./assets/Project-Report.pdf">
+    <img src="https://img.shields.io/badge/Read%20PDF-Project%20Report-blue?styleflat=for-the-badge&logo=adobeacrobatreader" alt="Read Report">
+  </a>
+</div>
