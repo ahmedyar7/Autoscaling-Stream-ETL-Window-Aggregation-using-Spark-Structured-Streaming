@@ -1,4 +1,8 @@
-<h1 align="center">
+<div align="center">
+    <img src="./assets/font-page.png" />
+</div>
+
+<!-- <h1 align="center">
 Autoscaling Stream ETL & Window Aggregation using Spark Structured Streaming
 </h1>
 
@@ -13,8 +17,10 @@ Autoscaling Stream ETL & Window Aggregation using Spark Structured Streaming
 </div>
 
 <br/>
+ -->
 
 
+--- 
 
 ## Project Overview
 
