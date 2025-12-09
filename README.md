@@ -45,7 +45,7 @@ This project demonstrates a **Cloud-Native Autoscaling Data Pipeline**. It simul
 
 ## Project Demo
 <div align="center">
-    <a href="https://drive.google.com/file/d/1rorc2kuKKUzM1B1E_2eJAMPhGSs5vPAu/preview">
+    <a href="https://drive.google.com/file/d/16rk1fZsm3CFEdXcpfkzRPgar77e3Q5Oe/view?usp=sharing">
         <img src="./assets/thumbnail.png" />
     </a>
 </div>
