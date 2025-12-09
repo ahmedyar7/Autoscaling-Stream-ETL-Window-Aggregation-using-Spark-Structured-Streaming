@@ -37,6 +37,12 @@ This project demonstrates a **Cloud-Native Autoscaling Data Pipeline**. It simul
 
 ---
 
+## Project Demo
+<iframe src="https://drive.google.com/file/d/1rorc2kuKKUzM1B1E_2eJAMPhGSs5vPAu/preview" width="640" height="480"></iframe>
+
+---
+
+
 ## Prerequisites (Windows Environment)
 
 To run this project locally, ensure you have the following installed:
