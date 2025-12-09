@@ -2,7 +2,6 @@ import time
 import json
 import random
 from kafka import KafkaProducer
-from faker import Faker
 
 # Setup Kafka Producer
 # Ensure your Kafka is running on localhost:9092
@@ -10,7 +9,29 @@ producer = KafkaProducer(
     bootstrap_servers=["localhost:9092"],
     value_serializer=lambda x: json.dumps(x).encode("utf-8"),
 )
-fake = Faker()
+
+student_names = [
+    "Ahmed Yar",
+    "Asjad",
+    "Umar Aziz",
+    "Khizer",
+    "Hamza",
+    "Ayaan",
+    "Zoha",
+    "Bilal",
+    "Fatima",
+    "Zainab",
+    "Hassan",
+    "Ayesha",
+    "Saad",
+    "Hira",
+    "Mahnoor",
+    "Usman",
+    "Amna",
+    "Fahad",
+    "Mariam",
+    "Taha",
+]
 
 # CS-specific lists to randomize from
 courses = [
@@ -21,7 +42,7 @@ courses = [
     "Linear Algebra",
 ]
 activities = ["coding", "debugging", "reading_docs", "committing_code", "running_tests"]
-ides = ["VS Code", "PyCharm", "Vim", "Jupyter Notebook", "Terminal"]
+ides = ["VS Code", "PyCharm", "Vim", "Jupyter Notebook", "Terminal", "Sublime Text"]
 errors = ["SyntaxError", "SegmentationFault", "NullPointer", "IndentationError", "None"]
 
 
@@ -40,7 +61,7 @@ def generate_student_log():
     return {
         "timestamp": time.time(),
         "student_id": f"CS-{random.randint(2021000, 2025999)}",
-        "student_name": fake.name(),
+        "student_name": random.choice(student_names),  # Using the custom list here
         "course": random.choice(courses),
         "activity": activity,
         "tool_used": random.choice(ides),
