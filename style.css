@@ -1,0 +1,399 @@
+:root {
+    --bg: #050505;
+    --card: #0d0d0d;
+
+    /* TEXT */
+    --text: #f5f7fa; 
+    --dim: #a1a7b3; 
+
+    --border: #1f1f1f;
+
+    /* ACCENTS */
+    --neon-green: #3dff8f;
+    --neon-blue: #4fdcff;
+    --neon-orange: #ffb340;
+
+    --font: "Roboto Mono", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    text-align: center;
+}
+
+.container-narrow {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    border-bottom: 1px solid var(--border);
+    padding: 25px 0;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.brand {
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dim);
+    font-size: 0.8rem;
+    transition: 0.3s;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 1px;
+    background: var(--neon-green);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--neon-green);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.btn-git {
+    text-decoration: none;
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+    padding: 6px 18px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+.btn-git:hover {
+    background: rgba(0, 255, 102, 0.08);
+    box-shadow: 0 0 12px rgba(0, 255, 102, 0.25);
+}
+
+/* HERO */
+.hero {
+    padding: 120px 0 80px;
+}
+
+.kicker {
+    font-size: 0.7rem;
+    color: var(--neon-green);
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    color: var(--dim);
+    font-size: 1rem;
+}
+
+.section {
+    margin: 120px 0;
+    text-align: left;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--neon-green);
+    margin-bottom: 20px;
+}
+
+.section p {
+    color: var(--dim);
+    margin-bottom: 16px;
+    max-width: 65ch;
+}
+
+.diagram-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.box {
+    padding: 12px 30px;
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    background: var(--card);
+    border-radius: 4px;
+}
+
+.box.blue {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+    animation: kafkaPulse 3s infinite ease-in-out;
+}
+
+.box.gray {
+    border-color: var(--dim);
+    color: var(--dim);
+}
+
+@keyframes kafkaPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 rgba(0, 210, 255, 0);
+    }
+    50% {
+        box-shadow: 0 0 16px rgba(0, 210, 255, 0.35);
+    }
+}
+
+.diag-path {
+    position: relative;
+    height: 50px;
+    width: 2px;
+}
+
+.line {
+    height: 100%;
+    width: 1px;
+    background: var(--border);
+    margin: 0 auto;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    left: -1.5px;
+    animation: flow 2s infinite linear;
+}
+
+.p-blue {
+    background: var(--neon-blue);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.p-orange {
+    background: var(--neon-orange);
+    box-shadow: 0 0 10px var(--neon-orange);
+    animation-duration: 0.7s;
+}
+
+@keyframes flow {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+.spark-cluster {
+    border: 1px solid var(--neon-orange);
+    padding: 20px;
+    width: 240px;
+    background: var(--card);
+    border-radius: 8px;
+    color: var(--neon-orange);
+}
+
+.master {
+    font-size: 0.7rem;
+    border-bottom: 1px solid rgba(255, 157, 0, 0.2);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.worker-grid {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.w {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: var(--dim);
+}
+
+.w.dynamic {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    animation: scalePulse 4s infinite ease-in-out;
+}
+
+@keyframes scalePulse {
+    0%,
+    20% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    40%,
+    80% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.table-container {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.stack-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.8rem;
+}
+
+.stack-table th {
+    background: #111;
+    color: var(--dim);
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+.stack-table td {
+    padding: 15px;
+    border-top: 1px solid var(--border);
+}
+
+.row-blue td:first-child {
+    color: var(--neon-blue);
+    font-weight: 800;
+}
+
+.row-orange td:first-child {
+    color: var(--neon-orange);
+    font-weight: 800;
+}
+
+.row-green td:first-child {
+    color: var(--neon-green);
+    font-weight: 800;
+}
+
+.metrics-symmetrical {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
+}
+
+.metric {
+    text-align: center;
+    padding: 20px;
+}
+
+.val {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -3px;
+    transition: transform 0.3s ease;
+}
+
+.metric:hover .val {
+    transform: scale(1.05);
+}
+
+.val.green {
+    color: var(--neon-green);
+}
+
+.val.blue {
+    color: var(--neon-blue);
+}
+
+.lab {
+    font-size: 0.7rem;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    font-size: 0.7rem;
+    color: var(--dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .metrics-symmetrical {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .diagram-wrapper {
+        gap: 30px;
+    }
+}

@@ -147,7 +147,7 @@ Once the system is running, follow these steps to demonstrate elasticity:
 <div align="">
   <h3>📄 Full Project Report</h3>
   <p>For a deep dive into the theoretical concepts, cost analysis, and implementation details, please view the academic report.</p>
-  <a href="./assets/Project-Report.pdf">
+  <a href="./assets/Final Project Report.pdf">
     <img src="https://img.shields.io/badge/Read%20PDF-Project%20Report-blue?styleflat=for-the-badge&logo=adobeacrobatreader" alt="Read Report">
   </a>
 </div>

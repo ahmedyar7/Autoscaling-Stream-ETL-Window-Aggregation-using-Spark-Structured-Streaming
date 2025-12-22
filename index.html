@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Elastic ETL | Ahmed Yar</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+            rel="stylesheet" />
+    </head>
+
+    <body>
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="brand">
+                    <a href="https://github.com/ahmedyar7" style="color: white; text-decoration: none;">@ahmedyar7</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#logic">Logic</a></li>
+                    <li><a href="#architecture">System Architecture</a></li>
+                    <li><a href="#stack">Tech Stack</a></li>
+                    <li><a href="#performance">Results</a></li>
+                </ul>
+                <a
+                    href="https://github.com/ahmedyar7/Autoscaling-Stream-ETL-Window-Aggregation-using-Spark-Structured-Streaming"
+                    class="btn-git"
+                    target="_blank"
+                    >&lt;Repository/&gt;</a
+                >
+            </div>
+        </nav>
+
+        <header class="hero">
+            <div class="container-narrow">
+                <div class="kicker">
+                    Course Code: CS-315 Cloud-Computing | NUST
+                </div>
+                <h1>
+                    Autoscaling Stream ETL & Window Aggregation using Spark
+                    Structured Streaming
+                </h1>
+                <p>
+                    A real-time pipeline engineered to solve the "Provisioning
+                    Dilemma" using Apache Spark Dynamic Allocation and Kafka.
+                </p>
+            </div>
+        </header>
+
+        <main class="container-narrow">
+            <section id="logic" class="section">
+                <h2 class="section-title">1 | The Problem</h2>
+                <p>
+                    Static cloud infrastructure leads to a choice between high
+                    costs (over-provisioning) or high latency
+                    (under-provisioning). This project implements
+                    <strong>Infrastructure Elasticity</strong>, allowing a
+                    cluster to grow and shrink its compute resources based on
+                    live data pressure.
+                </p>
+            </section>
+
+            <section id="architecture" class="section">
+                <h2 class="section-title">02 | System Architecture</h2>
+                <div class="diagram-wrapper">
+                    <div class="diag-node">
+                        <span class="label">SOURCE</span>
+                        <div class="box gray">Python Producer</div>
+                    </div>
+
+                    <div class="diag-path">
+                        <div class="line"></div>
+                        <div class="particle p-blue"></div>
+                    </div>
+
+                    <div class="diag-node">
+                        <span class="label">INGESTION</span>
+                        <div class="box blue">Apache Kafka</div>
+                    </div>
+
+                    <div class="diag-path">
+                        <div class="line"></div>
+                        <div class="particle p-orange"></div>
+                    </div>
+
+                    <div class="diag-node">
+                        <span class="label">PROCESSING</span>
+                        <div class="spark-cluster">
+                            <div class="master">Spark Master</div>
+                            <div class="worker-grid">
+                                <div class="w">W1</div>
+                                <div class="w dynamic">W2</div>
+                                <div class="w dynamic">W3</div>
+                                <div class="w dynamic">W4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="caption">
+                    W2-W4 executors scale up when a 1s backlog is detected in
+                    the 'cs_student_logs' topic
+                </p>
+            </section>
+
+            <section id="stack" class="section">
+                <h2 class="section-title">03 | Technology Stack</h2>
+                <div class="table-container">
+                    <table class="stack-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Technology</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-blue">
+                                <td>Ingestion</td>
+                                <td>Apache Kafka</td>
+                                <td>High-throughput message buffer</td>
+                            </tr>
+                            <tr class="row-orange">
+                                <td>Processing</td>
+                                <td>Spark 3.5.0</td>
+                                <td>10s Tumbling Window Aggregation</td>
+                            </tr>
+                            <tr class="row-green">
+                                <td>Elasticity</td>
+                                <td>Dynamic Allocation</td>
+                                <td>Real-time Executor scaling</td>
+                            </tr>
+                            <tr class="row-gray">
+                                <td>Environment</td>
+                                <td>Docker , Linux</td>
+                                <td>Containerized cluster management</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="performance" class="section">
+                <h2 class="section-title">04 | Performance Impact</h2>
+                <div class="metrics-symmetrical">
+                    <div class="metric">
+                        <span class="val green">62.5%</span>
+                        <span class="lab">Cost Reduction</span>
+                    </div>
+                    <div class="metric">
+                        <span class="val blue">300%</span>
+                        <span class="lab">Spike Capacity</span>
+                    </div>
+                </div>
+                <p>
+                    Testing confirmed a reduction from 96 to 36
+                    instance-hours/day compared to static cluster strategies
+                    while maintaining sub-second latency.
+                </p>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Ahmed Yar | Muhammad Asjad Kashif</p>
+            <p>National University of Sciences & Technology (NUST)</p>
+        </footer>
+    </body>
+</html>
