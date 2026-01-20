@@ -1,0 +1,15 @@
+[project]
+name = "spark-etl"
+version = "0.1.0"
+description = "Cloud-Native Autoscaling Stream ETL & Window Aggregation using Spark Structured Streaming"
+authors = [
+    {name = "NUST Cloud Computing Team", email = "cloudcomputing@nust.edu.pk"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "faker>=40.1.2",
+    "kafka-python>=2.3.0",
+    "pyspark>=4.1.1",
+]
